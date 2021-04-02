@@ -1,6 +1,8 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers:', 'content-type, origin, authorization, accept');
 
 include_once '../config/dbclass.php';
 include_once '../entities/listing.php';
@@ -14,20 +16,24 @@ $stmt = $listing->Read();
 $count = $stmt->rowCount();
 
 if ($count > 0) {
-    $products = array();
+    $listings = array();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $p = array(
+        $listing = array(
             "id" => $id,
+            "title" => $title,
+            "datePublished" => $datePublished,
+            "priceMonthly" => $priceMonthly,
             "numOfRooms" => $numOfRooms,
+            "city" => $city,
             "description" => $description
         );
 
-        array_push($products, $p);
+        array_push($listings, $listing);
     }
-    echo json_encode($products);
+    echo json_encode($listings);
 } else {
     echo json_encode( array() );
 }

@@ -5,11 +5,12 @@ class Listing {
     private $connection;
 
     public $id;
-    #public $datePublished;
-    #public $priceMonthly;
+    public $title;
+    public $datePublished;
+    public $priceMonthly;
     public $numOfRooms;
     #public $region;
-    #public $city;
+    public $city;
     #public $address;
     #public $space;
     public $description;
@@ -19,7 +20,29 @@ class Listing {
     }
 
     public function Create() {
-        
+        $query = "INSERT INTO rentcity.listings (
+            `title`,
+            `datePublished`,
+            `priceMonthly`,
+            `numOfRooms`,
+            `city`,
+            `description`
+            ) 
+            
+            VALUES (
+                '$this->title',
+                '$this->datePublished',
+                '$this->priceMonthly',
+                '$this->numOfRooms',
+                '$this->city',
+                '$this->description'
+            );";
+
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->execute();
+
+        return $stmt;
     }
 
     public function Read() {
@@ -33,7 +56,7 @@ class Listing {
     }
 
     public function Update() {
-
+        
     }
 
     public function Delete() {

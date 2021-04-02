@@ -15,10 +15,14 @@ $listing = new Listing($connection);
 
 $data = json_decode(file_get_contents('php://input'));
 
+$listing->title = $data->title;
+$listing->datePublished = $data->datePublished;
+$listing->priceMonthly = $data->priceMonthly;
 $listing->numOfRooms = $data->numOfRooms;
+$listing->city = $data->city;
 $listing->description = $data->description;
 
-if ($product->create()){
+if ($listing->create()) {
     echo '{';
         echo '"message": "Product was created."';
     echo '}';
