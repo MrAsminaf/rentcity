@@ -1,10 +1,14 @@
 import React from 'react';
+import styles from './ListingCompactComponent.module.css';
 
 function ListingCompactComponent(props) {
     return (
-        <div>
-            Tytuł: {props.title} 
-            Data opublikowania: {props.datePublished}
+        <div className={styles.card}>
+            <img/>
+            <div className={styles.details}>
+                <p>{props.title}</p>
+                <p>{props.datePublished}</p>
+            </div>
         </div>
     );
 }

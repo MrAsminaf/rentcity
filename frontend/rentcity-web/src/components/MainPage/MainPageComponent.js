@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ListingCompactComponent from '../ListingCompact/ListingCompactComponent';
+import HeaderComponent from '../Header/HeaderComponent';
+import styles from './MainPageComponent.module.css'
 
 function MainPageComponent() {
     const [listings, setListings] = useState();
@@ -30,7 +32,9 @@ function MainPageComponent() {
     }
 
     return (
-        <div> 
+        <div className={styles.container}>
+            <HeaderComponent/>
+            <div className={styles.listing_list}>
             {
                 listings.map( (item, index) => (
                     <ListingCompactComponent 
@@ -39,6 +43,7 @@ function MainPageComponent() {
                     datePublished={item.datePublished}/>
                 ))
             }
+            </div>
         </div>
     );
 }
