@@ -38,3 +38,7 @@ form {
     flex-direction: column;
     align-items: center;
 }
+
+form button {
+    margin-right: 0;
+}

@@ -4,10 +4,9 @@ include_once '../config/dbclass.php';
 require '../vendor/autoload.php';
 use \Firebase\JWT\JWT;
 
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers:', 'content-type, origin, authorization, accept');
 
 $dbClass = new DBClass();
 $connection = $dbClass->GetConnection();
@@ -17,7 +16,7 @@ $data = json_decode(file_get_contents('php://input'));
 $email = $data->email;
 $password = $data->password;
 
-$query = "SELECT * from rentcity.users WHERE email = '$email' LIMIT 0,1";
+$query = "SELECT * from rentcity.accounts WHERE email = '$email' LIMIT 0,1";
 
 $stmt = $connection->prepare($query);
 $stmt->execute();
@@ -57,7 +56,8 @@ if ($stmt->rowCount() > 0) {
         $jwt = JWT::encode($token, $key);
         echo json_encode(array(
             "message" => "User logged in",
-            "token" => $jwt
+            "token" => $jwt,
+            "id" => $id
         ));
     } else {
         http_response_code(400);

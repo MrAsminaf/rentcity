@@ -3,7 +3,7 @@
 include_once '../config/dbclass.php';
 
 header("Access-Control-Allow-Origin: * ");
-header("Content-Type: application/json; charset=UTF-8");
+header("Content-Type: application/json");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
@@ -18,7 +18,7 @@ $secondName = $data->secondName;
 $password = $data->password;
 $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
-$query = "INSERT INTO rentcity.users (
+$query = "INSERT INTO rentcity.accounts (
         `email`,
         `firstName`,
         `secondName`,
