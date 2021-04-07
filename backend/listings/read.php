@@ -21,8 +21,15 @@ if ($count > 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
+        if (isset($_GET['ownerid'])) {
+            if ($ownerId != $_GET['ownerid']) {
+                continue;
+            }
+        }
+
         $listing = array(
             "id" => $id,
+            "ownerId" => $ownerId,
             "title" => $title,
             "datePublished" => $datePublished,
             "priceMonthly" => $priceMonthly,

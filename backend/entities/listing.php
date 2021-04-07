@@ -5,6 +5,7 @@ class Listing {
     private $connection;
 
     public $id;
+    public $ownerId;
     public $title;
     public $datePublished;
     public $priceMonthly;
@@ -21,6 +22,7 @@ class Listing {
 
     public function Create() {
         $query = "INSERT INTO rentcity.listings (
+            `ownerId`,
             `title`,
             `datePublished`,
             `priceMonthly`,
@@ -30,6 +32,7 @@ class Listing {
             ) 
             
             VALUES (
+                '$this->ownerId',
                 '$this->title',
                 '$this->datePublished',
                 '$this->priceMonthly',
