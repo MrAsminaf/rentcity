@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import ListingCompactComponent from '../ListingCompact/ListingCompactComponent';
 import HeaderComponent from '../Header/HeaderComponent';
+import { Link } from 'react-router-dom';
 import styles from './AccountComponent.module.css';
 
 function AccountComponent() {
@@ -99,54 +100,78 @@ function AccountComponent() {
     }, []);
 
     return(
-        <div>
+        <div className={styles.container}>
             <HeaderComponent/>
 
-            <button id='addListingBtn' onClick={handleAddListing}>Dodaj ogłoszenie</button>
-            <div id='addListingModal' className={styles.modal} >
-                <div id='modalContent' className={styles.modalContent}>
+            <div className={styles.content}>
+                <menu>
+                    <ul>
+                        <li>Moje ogłoszenia</li>
+                        <li>Edytuj dane</li>
+                    </ul>
+                </menu>
 
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor='title'>Tytuł ogłoszenia</label>
-                        <input name='title' type='text' value={title}
-                            onChange={handleInputChange}/>
+                <main>
+                    <button id='addListingBtn' className={styles.addListingButton} onClick={handleAddListing}>Dodaj ogłoszenie</button>
+                    <div id='addListingModal' className={styles.modal} >
 
-                        <label htmlFor='priceMonthly'>Cena za miesiąc</label>
-                        <input name='priceMonthly' type='number' value={priceMonthly}
-                            onChange={handleInputChange}/>
+                        <div id='modalContent' className={styles.modalContent}>
 
+                            <form onSubmit={handleSubmit}>
+                                <label htmlFor='title'>Tytuł ogłoszenia</label>
+                                <input name='title' type='text' value={title}
+                                    onChange={handleInputChange}/>
 
-                        <label htmlFor='numOfRooms'>Liczba pokoi</label>
-                        <input name='numOfRooms' type='number' value={numOfRooms}
-                            onChange={handleInputChange}/>
-
-
-                        <label htmlFor='city'>Miasto</label>
-                        <input name='city' type='text' value={city}
-                            onChange={handleInputChange}/>
+                                <label htmlFor='priceMonthly'>Cena za miesiąc</label>
+                                <input name='priceMonthly' type='number' value={priceMonthly}
+                                    onChange={handleInputChange}/>
 
 
-                        <label htmlFor='description'>Opis</label>
-                        <input name='description' type='text' value={description}
-                            onChange={handleInputChange}/>
+                                <label htmlFor='numOfRooms'>Liczba pokoi</label>
+                                <input name='numOfRooms' type='number' value={numOfRooms}
+                                    onChange={handleInputChange}/>
 
-                        <button type='submit'>Dodaj ogłoszenie</button>
-                    </form>
 
-                    <span className={styles.close} onClick={handleCloseListing}>
-                        Close
-                    </span>
-                </div>
-            </div>
-            <div>
-            {
-                listings.map( (item, index) => (
-                    <ListingCompactComponent 
-                    key={index} 
-                    title={item.title}
-                    datePublished={item.datePublished}/>
-                ))
-            }
+                                <label htmlFor='city'>Miasto</label>
+                                <input name='city' type='text' value={city}
+                                    onChange={handleInputChange}/>
+
+
+                                <label htmlFor='description'>Opis</label>
+                                <input name='description' type='text' value={description}
+                                    onChange={handleInputChange}/>
+
+                                <button type='submit'>Dodaj ogłoszenie</button>
+                            </form>
+
+                            <span className={styles.close} onClick={handleCloseListing}>
+                                Close
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                    {
+                        listings.map( (item, index) => (
+
+                            <div className={styles.listingGroup} key={index}>
+                                <Link to={`/listings/${item.id}`} >
+                                    <ListingCompactComponent  
+                                        title={item.title}
+                                        datePublished={item.datePublished}
+                                        priceMonthly={item.priceMonthly}/>
+                                </Link>                   
+
+
+                                <div className={styles.listingButtons}>
+                                    <button>Edit</button>
+                                    <button>Delete</button>
+                                </div>
+                            </div>
+
+                        ))
+                    }
+                    </div>
+                </main>
             </div>
         </div>
     );

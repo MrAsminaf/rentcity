@@ -39,7 +39,11 @@ function MainPageComponent() {
             {
                 listings.map( (item, index) => (
                     <Link className={styles.link} key={index} to={`/listings/${item.id}`}>
-                        <ListingCompactComponent onClick title={item.title} datePublished={item.datePublished}/>
+                        <ListingCompactComponent 
+                            onClick title={item.title} 
+                            datePublished={item.datePublished}
+                            city={item.city}
+                            priceMonthly={item.priceMonthly} />
                     </Link>
                 ))
             }

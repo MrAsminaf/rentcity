@@ -6,8 +6,10 @@ function ListingCompactComponent(props) {
         <div className={styles.card}>
             <img className={styles.img}/>
             <div className={styles.details}>
-                <p>{props.title}</p>
-                <p>{props.datePublished}</p>
+                <p className={styles.title}>{props.title}</p>
+                <p className={styles.city}>Miasto: {props.city}</p>
+                <p className={styles.price}>{props.priceMonthly} zł na miesiąc</p>
+                <p className={styles.date}>{props.datePublished}</p>
             </div>
         </div>
     );
