@@ -103,50 +103,78 @@ function SignInComponent() {
         document.querySelector('#loginTab').addEventListener('click', () => {
             document.getElementById('login').style.display = "block";
             document.getElementById('register').style.display = "none";
+            document.getElementById('line').style.alignSelf = 'flex-start';
         });
 
         document.querySelector('#registerTab').addEventListener('click', () => {
             document.getElementById('register').style.display = "block";
             document.getElementById('login').style.display = "none";
+            document.getElementById('line').style.alignSelf = 'flex-end';
         });
     }, []);
 
     return(
-        <div className={styles.card}>
-            <ul className="tabsMenu">
-                <li id="loginTab"><a href="#login">Zaloguj się</a></li>
-                <li id="registerTab"><a href="#register">Zarejestruj się</a></li>
-            </ul>
-            <div className={styles.tab}>
-                <div id="login" className={styles.tabConent}>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor='email'>Email</label>
-                        <input name='email' type='text' id='emailInput'
-                                onChange={handleInputChange}/>
+        <div className={styles.container}>
+            <div className={styles.card}>
 
-                        <label htmlFor='password'>Hasło</label>
-                        <input name='password' type='password' id='passwordInput'
-                                onChange={handleInputChange} />
+                <ul className={styles.tabsMenu}>
+                    <li id="loginTab"><a href="#login">Zaloguj się</a></li>
+                    <li id="registerTab"><a href="#register">Zarejestruj się</a></li>
+                </ul>
 
-                        <button type='submit'>Zaloguj się</button>
-                    </form>
-                </div>
-                <div id="register" className={styles.tabContent}>
-                    <form onSubmit={handleRegisterSubmit}>
-                        <label htmlFor='email'>Email</label>
-                        <input name='email' type='text' id='emailInput' onChange={handleInputChange} />
+                <div id='line' className={styles.line}></div>
 
-                        <label htmlFor='firstName'>Imię</label>
-                        <input name='firstName' type='text' id='firstNameInput' onChange={handleInputChange} />
+                <div className={styles.tab}>
 
-                        <label htmlFor='secondName'>Nazwisko</label>
-                        <input name='secondName' type='text' id='secondNameInput' onChange={handleInputChange} />
+                    <div id="login" className={styles.login}>
+                        <form onSubmit={handleSubmit}>
 
-                        <label htmlFor='password'>Hasło</label>
-                        <input name='password' type='password' id='passwordInput' onChange={handleInputChange} />
+                            <div className={styles.inputGroup}>
+                                <label htmlFor='email'>Email</label>
+                                <input name='email' type='text' id='emailInput'
+                                    onChange={handleInputChange}/>
+                            </div>
 
-                        <button type='submit'>Zarejestruj się</button>
-                    </form>
+                            <div className={styles.inputGroup}>
+                                <label htmlFor='password'>Hasło</label>
+                                <input name='password' type='password' id='passwordInput'
+                                    onChange={handleInputChange} />
+                            </div>
+
+
+                            <button type='submit'>Zaloguj się</button>
+                        </form>
+                    </div>
+
+                    <div id="register" className={styles.register}>
+                        <form onSubmit={handleRegisterSubmit}>
+
+                            <div className={styles.inputGroup}>
+                                <label htmlFor='email'>Email</label>
+                                <input name='email' type='text' id='emailInput' onChange={handleInputChange} />
+                            </div>
+
+
+                            <div className={styles.inputGroup}>
+                                <label htmlFor='firstName'>Imię</label>
+                                <input name='firstName' type='text' id='firstNameInput' onChange={handleInputChange} />
+                            </div>
+
+
+                            <div className={styles.inputGroup}>
+                                <label htmlFor='secondName'>Nazwisko</label>
+                                <input name='secondName' type='text' id='secondNameInput' onChange={handleInputChange} />
+                            </div>
+
+
+                            <div className={styles.inputGroup}>
+                                <label htmlFor='password'>Hasło</label>
+                            <input name='password' type='password' id='passwordInput' onChange={handleInputChange} />
+                            </div>
+
+                            <button type='submit'>Zarejestruj się</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

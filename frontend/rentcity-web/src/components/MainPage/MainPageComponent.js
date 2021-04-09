@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ListingCompactComponent from '../ListingCompact/ListingCompactComponent';
 import HeaderComponent from '../Header/HeaderComponent';
 import styles from './MainPageComponent.module.css'
+import { Link } from 'react-router-dom';
 
 function MainPageComponent() {
     const [listings, setListings] = useState();
@@ -37,10 +38,9 @@ function MainPageComponent() {
             <div className={styles.listing_list}>
             {
                 listings.map( (item, index) => (
-                    <ListingCompactComponent 
-                    key={index} 
-                    title={item.title}
-                    datePublished={item.datePublished}/>
+                    <Link className={styles.link} key={index} to={`/listings/${item.id}`}>
+                        <ListingCompactComponent onClick title={item.title} datePublished={item.datePublished}/>
+                    </Link>
                 ))
             }
             </div>

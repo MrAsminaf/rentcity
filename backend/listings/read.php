@@ -27,6 +27,12 @@ if ($count > 0) {
             }
         }
 
+        if (isset($_GET['id'])) {
+            if ($id != $_GET['id']) {
+                continue;
+            }
+        }
+
         $listing = array(
             "id" => $id,
             "ownerId" => $ownerId,

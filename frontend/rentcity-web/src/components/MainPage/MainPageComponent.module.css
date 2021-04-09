@@ -11,3 +11,10 @@
     align-items: center;
     padding: 50px;
 }
+
+.link {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+}

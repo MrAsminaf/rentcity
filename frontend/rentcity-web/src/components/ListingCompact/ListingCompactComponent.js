@@ -4,7 +4,7 @@ import styles from './ListingCompactComponent.module.css';
 function ListingCompactComponent(props) {
     return (
         <div className={styles.card}>
-            <img/>
+            <img className={styles.img}/>
             <div className={styles.details}>
                 <p>{props.title}</p>
                 <p>{props.datePublished}</p>

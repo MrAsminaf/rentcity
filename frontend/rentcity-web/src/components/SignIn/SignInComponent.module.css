@@ -1,19 +1,29 @@
-.tabContent {
-    display: none;
+body {
+    font-size: 13px;
+    color: #666;
 }
 
-#login {
+.login {
     display: block;
+    width: 100%;
+}
+
+.register {
+    display: none;
+    width: 100%;
 }
 
 .card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: grey;
-    width: 40vh;
+    width: 50vh;
     height: 60vh;
-    border-radius: 2.5%;
+    border: 1px solid #CCC;
+    border-radius: 20px;
+    -webkit-box-shadow: 13px 10px 49px 0px rgba(171,171,171,1);
+    -moz-box-shadow: 13px 10px 49px 0px rgba(171,171,171,1);
+    box-shadow: 13px 10px 49px 0px rgba(171,171,171,1);
 }
 
 ul {
@@ -25,7 +35,7 @@ ul {
 }
 
 .tab {
-    margin-top: 20px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,12 +43,79 @@ ul {
     height: 100%;
 }
 
+
 form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+form input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+    border: 2px solid #ccc;
+}
+
+form label {
+    margin-left: 20px;
+}
+
+form input:focus {
+    outline-width: 0;
+    border: 2px solid #ae3c33;
+}
+
 form button {
     margin-right: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20vh;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+button[type='submit'] {
+    width: 152px;
+    height: 40px;
+    font-size: 13px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #ae3c33;
+    border-radius: 20px;
+    border: none;
+    margin-top: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #666;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tabsMenu {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.line {
+    height: 3px;
+    width: 40%;
+    align-self: flex-start;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: -30px;
+    background-color: #ae3c33;
 }
