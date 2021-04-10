@@ -59,7 +59,19 @@ class Listing {
     }
 
     public function Update() {
+        $query = "
+            UPDATE rentcity.listings
+            SET `title` = '$this->title',
+                `priceMonthly` = '$this->priceMonthly',
+                `numOfRooms` = '$this->numOfRooms',
+                `city` = '$this->city',
+                `description` = '$this->description'
+                WHERE `id` = '$this->id'";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt -> execute();
         
+        return $stmt;
     }
 
     public function Delete() {
