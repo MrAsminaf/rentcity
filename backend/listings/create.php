@@ -15,13 +15,13 @@ $listing = new Listing($connection);
 
 $data = json_decode(file_get_contents('php://input'));
 
-$listing->ownerId = $data->ownerId;
-$listing->title = $data->title;
-$listing->datePublished = $data->datePublished;
-$listing->priceMonthly = $data->priceMonthly;
-$listing->numOfRooms = $data->numOfRooms;
-$listing->city = $data->city;
-$listing->description = $data->description;
+$listing -> ownerId         = $data -> ownerId;
+$listing -> title           = $data -> title;
+$listing -> datePublished   = $data -> datePublished;
+$listing -> priceMonthly    = $data -> priceMonthly;
+$listing -> numOfRooms      = $data -> numOfRooms;
+$listing -> city            = $data -> city;
+$listing -> description     = $data -> description;
 
 if ($listing->create()) {
     echo '{';

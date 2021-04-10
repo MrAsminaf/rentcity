@@ -261,7 +261,20 @@ function AccountComponent() {
                                             </div>
                                         </div>
 
-                                        <button>Usuń</button>
+                                        <button onClick={() => {
+                                            let data = {
+                                                "id": item.id
+                                            };
+
+                                            fetch('http://localhost/rentcity/backend/listings/delete.php', {
+                                                method:'DELETE',
+                                                mode: 'cors',
+                                                cache: 'no-cache',
+                                                body: JSON.stringify(data)
+                                            }).then(() => {
+                                                window.location.reload();
+                                            });
+                                        }}>Usuń</button>
                                     </div>
                                 </div>
                             ))

@@ -75,7 +75,13 @@ class Listing {
     }
 
     public function Delete() {
+        $query = "
+            DELETE FROM rentcity.listings
+            WHERE `id` = '$this->id'";
+        $stmt = $this->connection->prepare($query);
+        $stmt -> execute();
 
+        return $stmt;
     }
 }
 
