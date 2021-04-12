@@ -15,6 +15,7 @@ class Listing {
     #public $address;
     #public $space;
     public $description;
+    public $pathToPicture;
 
     public function __construct($_connection) {
         $this->connection = $_connection;
@@ -28,7 +29,8 @@ class Listing {
             `priceMonthly`,
             `numOfRooms`,
             `city`,
-            `description`
+            `description`,
+            `pathToPicture`
             ) 
             
             VALUES (
@@ -38,7 +40,8 @@ class Listing {
                 '$this->priceMonthly',
                 '$this->numOfRooms',
                 '$this->city',
-                '$this->description'
+                '$this->description',
+                '$this->pathToPicture'
             );";
 
         $stmt = $this->connection->prepare($query);
@@ -59,7 +62,24 @@ class Listing {
     }
 
     public function Update() {
-        $query = "
+
+        if (isset($this -> pathToPicture)) {
+            $query = "
+            UPDATE rentcity.listings
+            SET `title` = '$this->title',
+                `priceMonthly` = '$this->priceMonthly',
+                `numOfRooms` = '$this->numOfRooms',
+                `city` = '$this->city',
+                `description` = '$this->description',
+                `pathToPicture` = '$this->pathToPicture'
+                WHERE `id` = '$this->id'";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt -> execute();
+        
+        return $stmt;
+        } else {
+            $query = "
             UPDATE rentcity.listings
             SET `title` = '$this->title',
                 `priceMonthly` = '$this->priceMonthly',
@@ -72,6 +92,8 @@ class Listing {
         $stmt -> execute();
         
         return $stmt;
+        }
+        
     }
 
     public function Delete() {

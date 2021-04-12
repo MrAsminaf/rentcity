@@ -15,6 +15,7 @@ function AccountComponent() {
     const [numOfRooms, setNumOfRooms] = useState(0);
     const [city, setCity] = useState('');
     const [description, setDescription] = useState('');
+    const [picture, setPicture] = useState();
 
     function handleAddListing() {
         document.getElementById('addListingModal').style.display = 'block';
@@ -44,6 +45,9 @@ function AccountComponent() {
             case 'description':
                 setDescription(value);
                 break;
+            case 'picture':
+                setPicture(value);
+                break;
         }
     }
 
@@ -52,53 +56,65 @@ function AccountComponent() {
         const url = 'http://localhost/rentcity/backend/listings/create.php';
         const currentTime = new Date();
 
-        const data = {
-            'ownerId': id,
-            'title': title,
-            'datePublished': `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate()}`,
-            'priceMonthly': priceMonthly,
-            'numOfRooms': numOfRooms,
-            'city': city,
-            'description': description
-        };
+        let formData = new FormData();
+
+        formData.append('ownerId', id);
+        formData.append('title', title);
+        formData.append('datePublished', `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate()}`);
+        formData.append('priceMonthly', priceMonthly);
+        formData.append('numOfRooms', numOfRooms);
+        formData.append('city', city);
+        formData.append('description', description);
+        formData.append('picture', e.target.picture.files[0]);
+
+        console.log(e.target.picture.files[0]);
 
         fetch(url, {
             method: 'POST',
             mode: 'cors',
-            cache: 'no-cache',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
+            body: formData
+        }).then( (response) => {
+
+            response.json().then((result) => {
+                console.log(result);
+            });
+
+            document.getElementById(`addListingModal`).style.display = 'none';
+            window.location.reload();
         });
     }
 
     function handleEditFormSubmit(e) {
         e.preventDefault();
 
-        console.log(e.target.id.value);
-        console.log(e.target.title.value);
-        console.log(e.target.priceMonthly.value);
-        console.log(e.target.numOfRooms.value);
-        console.log(e.target.city.value);
-        console.log(e.target.description.value);
-
         const url = 'http://localhost/rentcity/backend/listings/update.php';
 
-        const data = {
-            'id': e.target.id.value,
-            'title': e.target.title.value,
-            'priceMonthly': e.target.priceMonthly.value,
-            'numOfRooms': e.target.numOfRooms.value,
-            'city': e.target.city.value,
-            'description': e.target.description.value
-        };
+        let formData = new FormData();
+
+        formData.append('id', e.target.id.value);
+        formData.append('ownerId', e.target.ownerId.value);
+        formData.append('title', e.target.title.value);
+        formData.append('priceMonthly', e.target.priceMonthly.value);
+        formData.append('numOfRooms', e.target.numOfRooms.value);
+        formData.append('city', e.target.city.value);
+        formData.append('description', e.target.description.value);
+
+        if (e.target.picture.files[0] !== undefined) {
+            formData.append('picture', e.target.picture.files[0]);
+        }
 
         fetch(url, {
-            method:'PATCH',
+            method: 'POST',
             mode: 'cors',
-            cache: 'no-cache',
-            body: JSON.stringify(data)
-        }).then(() => {
+            body: formData
+        }).then((response) => {
+
             document.getElementById(`editListingModal${e.target.id.value}`).style.display = 'none';
+
+            response.json().then((result) => {
+                console.log(result);
+            });
+
             window.location.reload();
         });
 
@@ -162,7 +178,7 @@ function AccountComponent() {
 
                             <div id='modalContent' className={styles.modalContent}>
 
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit} encType='multipart/form-data'>
                                     <div className={styles.inputGroup}>
                                         <label htmlFor='title'>Tytuł ogłoszenia</label>
                                         <input name='title' type='text' value={title}
@@ -192,6 +208,12 @@ function AccountComponent() {
                                         <input name='description' type='text' value={description}
                                             onChange={handleInputChange}/>
                                     </div>
+                                    
+                                    <div className={styles.inputGroup}>
+                                        <label htmlFor='picture'>Zdjęcie</label>
+                                        <input name='picture' type='file' accept='image/png, image/jpeg'/>
+                                    </div>
+
                                     <button type='submit'>Dodaj ogłoszenie</button>
                                 </form>
 
@@ -209,7 +231,8 @@ function AccountComponent() {
                                         <ListingCompactComponent  
                                             title = {item.title}
                                             datePublished = {item.datePublished}
-                                            priceMonthly = {item.priceMonthly}/>
+                                            priceMonthly = {item.priceMonthly}
+                                            pathToPicture = {item.pathToPicture}/>
                                     </Link>                   
 
 
@@ -221,8 +244,9 @@ function AccountComponent() {
                                         <div id={`editListingModal${item.id}`} className={styles.modal} >
                                             <div id='modalContent' className={styles.modalContent}>
 
-                                                <form onSubmit={handleEditFormSubmit}>
+                                                <form onSubmit={handleEditFormSubmit} encType='multipart/form-data'>
                                                     <input type='hidden' name='id' value={item.id}/>
+                                                    <input type='hidden' name='ownerId' value={item.ownerId}/>
 
                                                     <div className={styles.inputGroup}>
                                                         <label htmlFor='title'>Tytuł ogłoszenia</label>
@@ -247,6 +271,11 @@ function AccountComponent() {
                                                     <div className={styles.inputGroup}>
                                                         <label htmlFor='description'>Opis</label>
                                                         <input name='description' type='text' defaultValue={item.description}/>
+                                                    </div>
+
+                                                    <div className={styles.inputGroup}>
+                                                        <label htmlFor='picture'>Zdjęcie</label>
+                                                        <input name='picture' type='file' accept='image/png, image/jpeg'/>
                                                     </div>
 
                                                     <button type='submit'>Zapisz zmiany</button>

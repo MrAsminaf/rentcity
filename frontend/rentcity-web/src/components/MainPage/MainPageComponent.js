@@ -43,7 +43,8 @@ function MainPageComponent() {
                             onClick title={item.title} 
                             datePublished={item.datePublished}
                             city={item.city}
-                            priceMonthly={item.priceMonthly} />
+                            priceMonthly={item.priceMonthly}
+                            pathToPicture={item.pathToPicture} />
                     </Link>
                 ))
             }

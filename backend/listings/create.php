@@ -1,6 +1,5 @@
 <?php
 
-header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -13,15 +12,21 @@ $connection = $dbclass->GetConnection();
 
 $listing = new Listing($connection);
 
-$data = json_decode(file_get_contents('php://input'));
+$listing -> ownerId         = $_POST['ownerId'];
+$listing -> title           = $_POST['title'];
+$listing -> datePublished   = $_POST['datePublished'];
+$listing -> priceMonthly    = $_POST['priceMonthly'];
+$listing -> numOfRooms      = $_POST['numOfRooms'];
+$listing -> city            = $_POST['city'];
+$listing -> description     = $_POST['description'];
+$listing -> pathToPicture   = '../albums/'.$listing -> ownerId.'/'.$_FILES["picture"]["name"];
 
-$listing -> ownerId         = $data -> ownerId;
-$listing -> title           = $data -> title;
-$listing -> datePublished   = $data -> datePublished;
-$listing -> priceMonthly    = $data -> priceMonthly;
-$listing -> numOfRooms      = $data -> numOfRooms;
-$listing -> city            = $data -> city;
-$listing -> description     = $data -> description;
+if (!file_exists('../albums/'.$listing -> ownerId.'/')) {
+    mkdir('../albums/'.$listing -> ownerId.'/', 0777, true);
+}
+
+move_uploaded_file($_FILES["picture"]["tmp_name"], '../albums/'.$listing -> ownerId.'/'.$_FILES["picture"]["name"]);
+
 
 if ($listing->create()) {
     echo '{';

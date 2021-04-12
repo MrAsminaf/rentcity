@@ -41,7 +41,8 @@ if ($count > 0) {
             "priceMonthly" => $priceMonthly,
             "numOfRooms" => $numOfRooms,
             "city" => $city,
-            "description" => $description
+            "description" => $description,
+            "pathToPicture" => $pathToPicture
         );
 
         array_push($listings, $listing);
